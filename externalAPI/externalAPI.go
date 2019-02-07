@@ -18,7 +18,7 @@ var (
 	ErrExceedRateLimit = fmt.Errorf("request exceed rate limit")
 )
 
-func QueryCatColor(color string) (string, error) {
+func QueryCatByColor(color string) (string, error) {
 	req, err := http.NewRequest("GET", apiEndPoint+defaultQuery+color, nil)
 	if err != nil {
 		fmt.Println("QueryCatcolor err :%v", err)

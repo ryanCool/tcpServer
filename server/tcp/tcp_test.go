@@ -136,6 +136,7 @@ func TestHandleMessageExternalAPI(t *testing.T) {
 		}
 
 		//We expect at least contain one result of black cat in query list
+		//TODO : mock QueryCatByColor response
 		if !strings.Contains(scanner.Text(), `"animal_colour":"黑色"`) {
 			t.Errorf("external api result is not as expected %v", scanner.Text())
 			return
