@@ -3,7 +3,8 @@ You can search cat for adoption by color.
 
 Just connect to server through TCP then type the cat color you like, and server will return all adoption info you need!!!
 
-
+## Demo
+https://youtu.be/vGaGC3TXnRU
 
 ## Build server
  go build server/main.go
