@@ -1,6 +1,4 @@
-# honestbeeHomeTest
-It's honestbee home test about tcp server implementation
-
+# tcp server
 You can search cat for adoption by color.
 
 Just connect to server through TCP then type the cat color you like, and server will return all adoption info you need!!!
