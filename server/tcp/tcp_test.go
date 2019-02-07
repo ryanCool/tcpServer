@@ -58,7 +58,6 @@ func TestHandleMessageQuit(t *testing.T) {
 	scanner := bufio.NewScanner(conn)
 	readCount := 0
 	for scanner.Scan() {
-		readCount++
 		if err != nil {
 			t.Errorf("err=%v", err)
 			return
@@ -68,10 +67,14 @@ func TestHandleMessageQuit(t *testing.T) {
 			t.Errorf("should receive quit from server, but receive %v", scanner.Text())
 			return
 		} else {
+			readCount++
 			break
 		}
 	}
 
+	if readCount == 0 {
+		t.Errorf("server should send quit")
+	}
 }
 
 func TestHandleMessageQuitTimeout(t *testing.T) {
