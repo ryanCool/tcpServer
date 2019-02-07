@@ -38,7 +38,14 @@ func HandleConnection(conn net.Conn) {
 
 	scanner := bufio.NewScanner(conn)
 	for scanner.Scan() {
-		err := handleMessage(scanner.Text(), conn)
+		//refresh read timeout
+		err := conn.SetReadDeadline(time.Now().Add(readTimeoutDuration))
+		if err != nil {
+			fmt.Println("set dead line fail :", err)
+			return
+		}
+
+		err = handleMessage(scanner.Text(), conn)
 		if err != nil && err != ErrClientCloseConn {
 			fmt.Println("handleMessage fail", err)
 			return
