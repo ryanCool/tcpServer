@@ -3,21 +3,20 @@ package api
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/honestbeeHomeTest/server/tcp"
 	"net/http"
 )
 
 type Stat struct {
 	CurrConnCount      int      `json:"current_connection_count"`
-	CurrReqRate        float64  `json:"current_request_rate"`
-	CurrReqCount       int      `json:"current_request_count"`
+	CurrReqRate        int      `json:"current_request_rate"`
 	CloseConnections   int      `json:"close_connections"`
-	MessageReceiveRate float64  `json:"message_receive_rate"`
-	MessageSentRate    float64  `json:"message_sent_rate"`
-	DataReceiveRate    float64  `json:"data_receive_rate"`
-	DataSentRate       float64  `json:"data_sent_rate"`
+	MessageReceiveRate int      `json:"message_receive_rate"`
+	MessageSentRate    int      `json:"message_sent_rate"`
+	DataReceiveRate    int      `json:"data_receive_rate"`
+	DataSentRate       int      `json:"data_sent_rate"`
 	ProcessedReq       int      `json:"processed_request_count"`
-	ConnClient         []string `json:"connected_client"`
-	CurrGoRoutine      int      `json:"current_goroutine_count"`
+	ConnClients        []string `json:"connected_client"`
 	RemainingJobs      int      `json:"remaining_jobs"`
 }
 
@@ -49,7 +48,18 @@ func HealthHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func StatHandler(w http.ResponseWriter, r *http.Request) {
-	stat := &Stat{}
+	stat := &Stat{
+		CurrConnCount:      len(tcp.ConnClients),
+		CurrReqRate:        tcp.CurrReqRate,
+		CloseConnections:   tcp.CloseConnections,
+		MessageReceiveRate: tcp.MessageReceiveRate,
+		MessageSentRate:    tcp.MessageSentRate,
+		DataReceiveRate:    tcp.DataReceiveRate,
+		DataSentRate:       tcp.DataSentRate,
+		ProcessedReq:       tcp.ProcessedReq,
+		ConnClients:        tcp.ConnClients,
+		RemainingJobs:      tcp.RemainingJobs,
+	}
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 
