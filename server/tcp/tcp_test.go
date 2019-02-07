@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"strings"
 	"testing"
 	"time"
 )
@@ -112,4 +113,35 @@ func TestHandleMessageQuitTimeout(t *testing.T) {
 	if readCount != 0 {
 		t.Errorf("server should timeout and receive nothing")
 	}
+}
+
+func TestHandleMessageExternalAPI(t *testing.T) {
+	conn, err := net.Dial("tcp", "localhost:"+testPort)
+	if err != nil {
+		t.Errorf("err=%v", err)
+		return
+	}
+	defer conn.Close()
+	_, err = conn.Write([]byte("黑色\n"))
+	if err != nil {
+		t.Errorf("err=%v", err)
+		return
+	}
+
+	scanner := bufio.NewScanner(conn)
+	for scanner.Scan() {
+		if err != nil {
+			t.Errorf("err=%v", err)
+			return
+		}
+
+		//We expect at least contain one result of black cat in query list
+		if !strings.Contains(scanner.Text(), `"animal_colour":"黑色"`) {
+			t.Errorf("external api result is not as expected %v", scanner.Text())
+			return
+		} else {
+			break
+		}
+	}
+
 }

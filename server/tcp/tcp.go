@@ -70,7 +70,7 @@ func handleMessage(message string, conn net.Conn) error {
 		}
 		return ErrClientCloseConn
 	} else {
-		result, err := externalAPI.QueryCatColor(message)
+		result, err := externalAPI.QueryCatByColor(message)
 		if err != nil {
 			return err
 		}
