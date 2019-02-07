@@ -1,8 +1,9 @@
 package tcp
 
 import (
+	"github.com/honestbeeHomeTest/externalAPI"
+
 	"bufio"
-	"flag"
 	"fmt"
 	"net"
 	"time"
@@ -10,17 +11,14 @@ import (
 
 const (
 	quitCommand = "quit"
-	network     = "tcp"
 )
 
 var (
 	readTimeoutDuration = 10 * time.Second
-	port                = flag.Int("port", 8000, "tcp server listen port")
 	ErrClientCloseConn  = fmt.Errorf("client close connection")
 )
 
 func HandleConnection(conn net.Conn) {
-
 	remoteAddr := conn.RemoteAddr().String()
 	fmt.Println("Client connected from " + remoteAddr)
 
@@ -64,6 +62,15 @@ func handleMessage(message string, conn net.Conn) error {
 			return err
 		}
 		return ErrClientCloseConn
+	} else {
+		result, err := externalAPI.QueryCatColor(message)
+		if err != nil {
+			return err
+		}
+		_, err = conn.Write([]byte(result))
+		if err != nil {
+			return err
+		}
 	}
 	return nil
 }
