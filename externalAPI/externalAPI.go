@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 const (
@@ -16,6 +17,8 @@ const (
 
 var (
 	ErrExceedRateLimit = fmt.Errorf("request exceed rate limit")
+	QueryMsgs          = make(chan string, 100)
+	RateLimit          = time.Tick(time.Second / rateLimitPerSec)
 )
 
 func QueryCatByColor(color string) (string, error) {

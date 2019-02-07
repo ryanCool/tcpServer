@@ -70,10 +70,12 @@ func handleMessage(message string, conn net.Conn) error {
 		}
 		return ErrClientCloseConn
 	} else {
+		<-externalAPI.RateLimit
 		result, err := externalAPI.QueryCatByColor(message)
 		if err != nil {
 			return err
 		}
+
 		_, err = conn.Write([]byte(result))
 		if err != nil {
 			return err
