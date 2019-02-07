@@ -16,7 +16,7 @@ const (
 
 var (
 	lock                sync.RWMutex
-	readTimeoutDuration = 100 * time.Second
+	readTimeoutDuration = 10 * time.Second
 	ErrClientCloseConn  = fmt.Errorf("client close connection")
 	ConnClients         = []string{}
 	CurrReqRate         = 0
