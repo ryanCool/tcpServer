@@ -12,22 +12,27 @@ import (
 	"net"
 	"strconv"
 
+	"github.com/honestbeeHomeTest/server/api"
 	"github.com/honestbeeHomeTest/server/tcp"
 )
 
 var (
-	port    = flag.Int("port", 8000, "tcp server listen port")
+	port    = flag.Int("port", 3000, "tcp server listen port")
 	network = "tcp"
 )
 
 func main() {
 	flag.Parse()
 
+	go api.StartServer()
+
 	listener, err := net.Listen(network, ":"+strconv.Itoa(*port))
 	if err != nil {
 		panic(err)
 		return
 	}
+
+	fmt.Printf("TCP Server listening on port:%d\n", *port)
 
 	defer listener.Close()
 
