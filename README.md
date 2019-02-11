@@ -27,6 +27,20 @@ Http server port : 8000
 go test ./server/tcp/
 ```
 
+## Usage
+```
+ //Run tcp server
+ go run server/main.go -port=3000 
+ //Connect by another terminal
+ nc localhost 3000
+ //Send yout query string
+ $ (enter your query)
+ ex: 
+ $ 黑色
+ $ 灰色
+ .....
+```
+
 
 ### Statistics API
 ```
