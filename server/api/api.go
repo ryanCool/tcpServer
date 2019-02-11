@@ -3,7 +3,7 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/honestbeeHomeTest/server/tcp"
+	"github.com/ryanCool/tcpServer/server/tcp"
 	"net/http"
 )
 

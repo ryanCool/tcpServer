@@ -12,9 +12,9 @@ import (
 	"net"
 	"strconv"
 
-	"github.com/honestbeeHomeTest/server/api"
+	"github.com/ryanCool/tcpServer/server/api"
 
-	"github.com/honestbeeHomeTest/server/tcp"
+	"github.com/ryanCool/tcpServer/server/tcp"
 )
 
 var (

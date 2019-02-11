@@ -1,7 +1,7 @@
 package tcp
 
 import (
-	"github.com/honestbeeHomeTest/externalAPI"
+	"github.com/ryanCool/tcpServer/externalAPI"
 
 	"bufio"
 	"fmt"
